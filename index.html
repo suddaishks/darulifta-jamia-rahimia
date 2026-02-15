@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جامعہ مسجد و مدرسہ قاضی انیس الرحمن | ڈیجیٹل پورٹل</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1a2a6c;
+            --dark-blue: #0d163f;
+            --gold-accent: #c5a021;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --wa-green: #25d366;
+            --text-main: #2d2d2d;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode {
+            --bg-light: #121212;
+            --white: #1e1e1e;
+            --text-main: #e0e0e0;
+            --primary-blue: #3a4eb3;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            margin: 0; background-color: var(--bg-light);
+            color: var(--text-main); line-height: 2;
+            overflow-x: hidden; transition: 0.3s;
+        }
+
+        /* 1. Splash Screen */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffffff; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+        .loader-ring {
+            width: 80px; height: 80px; border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary-blue); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* 2. Navigation */
+        header { 
+            background: var(--white); padding: 15px 20px; display: flex; 
+            justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; 
+        }
+        
+        .sidebar { 
+            height: 100%; width: 0; position: fixed; z-index: 2000; 
+            top: 0; right: 0; background-color: var(--dark-blue); 
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px;
+        }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 18px; color: white; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .news-ticker { background: var(--dark-blue); color: white; padding: 8px 0; font-size: 14px; border-bottom: 2px solid var(--gold-accent); }
+
+        /* 3. Layout & Sections */
+        .container { padding: 15px; max-width: 800px; margin: auto; min-height: 85vh; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 4. Designing Improved Cards */
+        .fatwa-card, .form-card { 
+            background: var(--white); border-radius: 15px; margin-bottom: 20px; 
+            overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.05); 
+        }
+        .q-box { background: rgba(26, 42, 108, 0.05); padding: 15px 20px; border-bottom: 2px solid var(--primary-blue); font-weight: bold; font-size: 1.1rem; }
+        .a-box { padding: 20px; text-align: justify; border-bottom: 1px solid #eee; }
+
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .grid-item { 
+            background: var(--white); padding: 20px; text-align: center; border-radius: 15px; 
+            cursor: pointer; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; box-shadow: var(--card-shadow);
+        }
+        .grid-item i { font-size: 28px; color: var(--primary-blue); margin-bottom: 10px; }
+        .grid-item:active { transform: scale(0.95); }
+
+        /* 5. Library Grid */
+        .lib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .book-card { 
+            background: var(--white); border-radius: 12px; padding: 15px; text-align: center; 
+            border-bottom: 4px solid var(--gold-accent); box-shadow: var(--card-shadow);
+        }
+
+        /* 6. Buttons & Inputs */
+        .form-control { 
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; 
+            margin-bottom: 15px; box-sizing: border-box; font-family: inherit; font-size: 1rem;
+            background: var(--white); color: var(--text-main);
+        }
+        .btn-main { 
+            background: var(--primary-blue); color: white; padding: 12px 25px; border-radius: 10px; 
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border:none; cursor:pointer; font-size: 15px;
+        }
+        .btn-wa { background: var(--wa-green); color: white; padding: 14px; width: 100%; border: none; border-radius: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; cursor:pointer; font-size: 16px; }
+        .share-btn { background: #e7f9ed; color: var(--wa-green); border: 1px solid var(--wa-green); padding: 5px 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: bold; }
+
+        .tag { background: var(--gold-accent); color: white; padding: 2px 10px; border-radius: 6px; font-size: 12px; margin-left: 10px; font-family: sans-serif; }
+
+        footer { background: var(--dark-blue); color: white; text-align: center; padding: 40px 20px; margin-top: 40px; }
+        .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 25px; font-size: 28px; }
+        .social-icons a { color: white; }
+
+        #scrollTop { position: fixed; bottom: 25px; left: 25px; background: var(--primary-blue); color: white; width: 50px; height: 50px; border-radius: 50%; display: none; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="loader-ring"></div>
+        <h2 style="color: var(--primary-blue); margin:0;">جامعہ قاضی انیس الرحمن</h2>
+        <p>لانڈھی، کراچی</p>
+    </div>
+
+    <div class="news-ticker">
+        <marquee id="tickerText">تعلیمی پورٹل میں خوش آمدید...</marquee>
+    </div>
+
+    <header>
+        <div id="menuIcon" onclick="openNav()" style="font-size:24px; cursor:pointer;"><i class="fas fa-bars"></i></div>
+        <div id="backBtn" onclick="switchPage('home')" style="display:none; color:var(--primary-blue); cursor:pointer"><i class="fa fa-arrow-right"></i></div>
+        
+        <h1 style="margin:0; font-size:1.1rem; color:var(--primary-blue)">جامعہ قاضی انیس الرحمن</h1>
+        
+        <div style="display: flex; gap: 15px;">
+            <i class="fa fa-moon" onclick="toggleDarkMode()" style="cursor:pointer; color:var(--gold-accent); font-size: 20px;"></i>
+            <i class="fa fa-home" onclick="switchPage('home')" style="cursor:pointer; color:var(--gold-accent); font-size: 20px;"></i>
+        </div>
+    </header>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" onclick="closeNav()" style="text-align:left; font-size:35px">&times;</a>
+        <a href="#" onclick="switchPage('home')"><i class="fa fa-home"></i> سرورق</a>
+        <a href="#" onclick="switchPage('education')"><i class="fa fa-mosque"></i> تعلیمی نظام</a>
+        <a href="#" onclick="switchPage('library')"><i class="fa fa-book-open"></i> کتاب خانہ</a>
+        <a href="#" onclick="switchPage('admission')"><i class="fa fa-user-plus"></i> داخلہ فارم</a>
+        <a href="#" onclick="switchPage('donation')"><i class="fa fa-heart"></i> عطیات</a>
+        <a href="#" onclick="switchPage('contact')"><i class="fa fa-phone"></i> رابطہ</a>
+    </div>
+
+    <div class="container">
+        
+        <div id="home" class="section active">
+            <div class="grid-menu">
+                <div class="grid-item" onclick="switchPage('education')"><i class="fa fa-mosque"></i><br>تعلیمی نظام</div>
+                <div class="grid-item" onclick="switchPage('library')"><i class="fa fa-book-open"></i><br>کتاب خانہ</div>
+                <div class="grid-item" onclick="switchPage('admission')"><i class="fa fa-pen-alt"></i><br>داخلہ فارم</div>
+                <div class="grid-item" onclick="switchPage('ask')"><i class="fa fa-comment-dots"></i><br>مسئلہ پوچھیں</div>
+            </div>
+
+            <input type="text" id="searchInput" class="form-control" placeholder="تلاش کریں (مثلاً: نماز، روزہ...)" onkeyup="filterFatwas()">
+            <div id="fatwaContainer" style="text-align:center"><i class="fa fa-spinner fa-spin"></i> ڈیٹا لوڈ ہو رہا ہے...</div>
+        </div>
+
+        <div id="education" class="section">
+            <h3 style="text-align:center; color:var(--primary-blue)">جامعہ کے تعلیمی شعبہ جات</h3>
+            <div id="eduContainer"></div>
+        </div>
+
+        <div id="library" class="section">
+            <h3 style="text-align:center; color:var(--primary-blue)">کتاب خانہ (Library)</h3>
+            <div id="bookContainer" class="lib-grid"></div>
+        </div>
+
+        <div id="admission" class="section">
+            <div class="form-card" style="padding:25px">
+                <h3 style="text-align:center; color:var(--primary-blue)">آن لائن درخواستِ داخلہ</h3>
+                <p style="text-align:center; font-size:14px">براہ کرم تمام معلومات درست درج کریں۔</p>
+                <input type="text" id="admName" class="form-control" placeholder="طالب علم کا مکمل نام">
+                <input type="text" id="admFather" class="form-control" placeholder="والد کا نام">
+                <input type="number" id="admPhone" class="form-control" placeholder="رابطہ نمبر (واٹس ایپ)">
+                <select id="admClass" class="form-control">
+                    <option value="">درجہ منتخب کریں</option>
+                    <option value="ناظرہ">ناظرہ قرآن کریم</option>
+                    <option value="حفظ">حفظِ قرآن</option>
+                    <option value="درسِ نظامی">عالم کورس (درسِ نظامی)</option>
+                    <option value="تخصص">تخصص فی الفقہ</option>
+                </select>
+                <textarea id="admAddress" class="form-control" placeholder="مکمل پتہ"></textarea>
+                <button class="btn-wa" onclick="sendAdmission()"><i class="fab fa-whatsapp"></i> درخواست جمع کروائیں</button>
+            </div>
+        </div>
+
+        <div id="donation" class="section">
+            <div class="fatwa-card" style="padding:25px; text-align:center">
+                <i class="fa fa-hand-holding-heart" style="font-size:50px; color:var(--gold-accent)"></i>
+                <h3>تعاون و عطیات</h3>
+                <p>آپ کے عطیات جامعہ کے مستحق طلبہ اور تعلیمی منصوبوں پر خرچ کیے جاتے ہیں۔</p>
+                <div style="background:rgba(0,0,0,0.03); padding:20px; border-radius:15px; margin-top:15px">
+                    <p><b>میزان بینک (Mezan Bank)</b><br>ٹائٹل: Jamia Qazi Anisur Rehman<br>اکاؤنٹ: 1234567890123</p>
+                    <button class="btn-main" onclick="copyText('1234567890123')"><i class="fa fa-copy"></i> نمبر کاپی کریں</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="ask" class="section">
+            <div class="form-card" style="padding:25px">
+                <h3>شرعی مسئلہ پوچھیں</h3>
+                <p>اپنا سوال تفصیل سے لکھیں، مفتی صاحب واٹس ایپ پر جواب دیں گے۔</p>
+                <textarea id="questionText" class="form-control" rows="6" placeholder="مثلاً: وضو کے فرائض کیا ہیں؟"></textarea>
+                <button class="btn-wa" onclick="askMufti()"><i class="fab fa-whatsapp"></i> مفتی صاحب سے پوچھیں</button>
+            </div>
+        </div>
+
+        <div id="contact" class="section">
+            <div class="fatwa-card" style="padding:30px; text-align:center">
+                <i class="fa fa-map-marked-alt" style="font-size:45px; color:var(--primary-blue)"></i>
+                <h3>جامعہ کا پتہ</h3>
+                <p>PSO پیٹرول پمپ، ہڈی مل، لانڈھی کراچی</p>
+                <button class="btn-main" onclick="window.open('https://maps.google.com/?q=Landhi+Karachi')"><i class="fa fa-location-arrow"></i> گوگل میپس پر دیکھیں</button>
+                <hr style="margin:25px 0; opacity:0.1">
+                <i class="fa fa-phone-alt" style="font-size:30px; color:var(--wa-green)"></i>
+                <p style="font-size:22px; direction:ltr; font-weight:bold">0318 2187575</p>
+                <button class="btn-wa" onclick="window.open('https://wa.me/923182187575')">واٹس ایپ چیٹ</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i class="fa fa-arrow-up"></i></div>
+
+    <footer>
+        <p style="font-weight:bold">جامعہ مسجد و مدرسہ قاضی انیس الرحمن</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/923182187575"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="font-size:11px; margin-top:30px; opacity:0.5">© 2024 جملہ حقوق محفوظ ہیں۔</p>
+    </footer>
+
+    <script>
+        const SHEET_ID = '1OjYrnTqL2spf20iDDRIJCkhjoLjIO0SPCW5nXLr66dM';
+        let allData = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                allData = json.table.rows.slice(1);
+                renderEverything(allData);
+            } catch (e) {
+                document.getElementById('fatwaContainer').innerHTML = "ڈیٹا لوڈ نہیں ہو سکا۔ انٹرنیٹ چیک کریں۔";
+            }
+        }
+
+        function renderEverything(rows) {
+            let fatwaHtml = '', bookHtml = '', eduHtml = '';
+            let fCount = 0, mCount = 0, bCount = 0;
+
+            rows.forEach((row) => {
+                const q = row.c[0]?.v || '';
+                const a = row.c[1]?.v || '';
+                const link = row.c[2]?.v || '';
+                const type = String(row.c[3]?.v || '').toLowerCase();
+
+                if (type.includes('education')) {
+                    eduHtml += `<div class="fatwa-card"><div class="q-box">${q}</div><div class="a-box">${a}</div></div>`;
+                } 
+                else if (type.includes('book')) {
+                    bCount++;
+                    bookHtml += `<div class="book-card"><span class="tag">کتاب ${bCount}</span><br><i class="fa fa-book-pdf" style="font-size:35px; color:var(--primary-blue); margin:10px 0;"></i><br><b>${q}</b><br><a href="${link}" target="_blank" class="btn-main" style="padding:5px 15px; font-size:12px; margin-top:10px">ڈاؤن لوڈ</a></div>`;
+                }
+                else if (type.includes('pdf')) {
+                    fCount++;
+                    fatwaHtml += `<div class="fatwa-card"><div class="q-box"><span class="tag">فتویٰ ${fCount}</span> ${q}</div><div class="a-box">${a.substring(0,120)}...</div><div style="padding:15px"><a href="${link}" target="_blank" class="btn-main">مکمل فتویٰ (PDF)</a></div></div>`;
+                }
+                else if (type.includes('news')) {
+                    document.getElementById('tickerText').innerText = q;
+                }
+                else if (q) {
+                    mCount++;
+                    fatwaHtml += `
+                        <div class="fatwa-card">
+                            <div class="q-box"><span class="tag">مسئلہ ${mCount}</span> ${q}</div>
+                            <div class="a-box">${a}</div>
+                            <div style="padding:12px 20px; background:#fcfcfc; display:flex; justify-content:flex-end">
+                                <button class="share-btn" onclick="shareWa('${q}','${a}')"><i class="fab fa-whatsapp"></i> شیئر کریں</button>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            document.getElementById('fatwaContainer').innerHTML = fatwaHtml || "کوئی ریکارڈ نہیں ملا۔";
+            document.getElementById('bookContainer').innerHTML = bookHtml;
+            document.getElementById('eduContainer').innerHTML = eduHtml;
+        }
+
+        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        function openNav() { document.getElementById("mySidebar").style.width = "280px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+        function switchPage(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('menuIcon').style.display = (id === 'home') ? 'block' : 'none';
+            document.getElementById('backBtn').style.display = (id === 'home') ? 'none' : 'block';
+            closeNav();
+            window.scrollTo({top:0, behavior:'smooth'});
+        }
+
+        function shareWa(q, a) {
+            const msg = `*سوال:* ${q}\n*جواب:* ${a}\n\n_جامعہ قاضی انیس الرحمن کراچی_`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
+        }
+
+        function sendAdmission() {
+            const name = document.getElementById('admName').value;
+            const father = document.getElementById('admFather').value;
+            const phone = document.getElementById('admPhone').value;
+            const grade = document.getElementById('admClass').value;
+            const address = document.getElementById('admAddress').value;
+
+            if(!name || !phone || !grade) return alert("براہ کرم ضروری معلومات پُر کریں۔");
+            
+            const msg = `*درخواستِ داخلہ (آن لائن)*\n\n*نام:* ${name}\n*والد:* ${father}\n*رابطہ:* ${phone}\n*درجہ:* ${grade}\n*پتہ:* ${address}`;
+            window.open(`https://wa.me/923182187575?text=${encodeURIComponent(msg)}`);
+        }
+
+        function askMufti() {
+            const q = document.getElementById('questionText').value;
+            if(!q) return alert("سوال لکھیں۔");
+            window.open(`https://wa.me/923182187575?text=${encodeURIComponent('*سوال:* \n'+q)}`);
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt);
+            alert("نمبر کاپی کر لیا گیا!");
+        }
+
+        function filterFatwas() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allData.filter(row => 
+                (row.c[0]?.v || '').toLowerCase().includes(term) || 
+                (row.c[1]?.v || '').toLowerCase().includes(term)
+            );
+            renderEverything(filtered);
+        }
+
+        window.onscroll = () => {
+            document.getElementById('scrollTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
+        };
+
+        window.onload = () => {
+            loadData();
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 800);
+            }, 2000);
+        };
+    </script>
+</body>
+</html>
