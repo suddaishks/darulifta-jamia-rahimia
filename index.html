@@ -16,8 +16,9 @@
             --bg-light: #f8fafc;
             --white: #ffffff;
             --wa-green: #25d366;
+            --wa-dark: #128c7e;
             --text-main: #334155;
-            --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         body.dark-mode {
@@ -67,7 +68,8 @@
         }
         .sidebar a { padding: 12px 25px; text-decoration: none; font-size: 16px; color: white; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); }
         
-        .news-ticker { background: var(--dark-blue); color: white; padding: 6px 0; font-size: 13px; border-bottom: 2px solid var(--gold-accent); }
+        /* NEWS TICKER SMALLER */
+        .news-ticker { background: var(--dark-blue); color: white; padding: 4px 0; font-size: 11px; border-bottom: 2px solid var(--gold-accent); }
 
         /* 3. Layout & Sections */
         .container { padding: 12px; max-width: 800px; margin: auto; min-height: 85vh; }
@@ -75,7 +77,24 @@
         .section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 4. Designing Compact Grid Menu */
+        /* 4. Category Tabs Styling */
+        .category-tabs { display: flex; gap: 8px; margin: 15px 0; justify-content: center; }
+        .tab-btn { background: #e2e8f0; border: none; padding: 6px 15px; border-radius: 20px; font-family: inherit; font-size: 12px; cursor: pointer; transition: 0.2s; color: var(--text-main); }
+        .tab-btn.active { background: var(--primary-blue); color: white; }
+
+        /* 5. Smart WhatsApp Popup */
+        #wa-popup {
+            position: fixed; bottom: -100px; right: 20px; left: 20px; 
+            background: white; border-top: 4px solid var(--wa-green);
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.15); border-radius: 12px 12px 0 0;
+            padding: 15px; z-index: 1500; transition: 0.5s ease;
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        }
+        #wa-popup.show { bottom: 0; }
+        .popup-text { font-size: 12px; font-weight: bold; color: var(--dark-blue); }
+        .popup-close { background: #eee; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
+
+        /* 6. Designing Compact Grid Menu */
         .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         .grid-item { 
             background: var(--white); padding: 12px 10px; text-align: center; border-radius: 10px; 
@@ -84,7 +103,7 @@
         .grid-item i { font-size: 20px; color: var(--primary-blue); margin-bottom: 6px; }
         .grid-item span { font-size: 13px; font-weight: 700; display: block; }
 
-        /* 5. Cards Refinement */
+        /* 7. Cards Refinement */
         .fatwa-card, .form-card { 
             background: var(--white); border-radius: 12px; margin-bottom: 12px; 
             overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid #edf2f7; 
@@ -92,13 +111,41 @@
         .q-box { background: rgba(26, 42, 108, 0.03); padding: 12px 15px; border-bottom: 1.5px solid var(--primary-blue); font-weight: bold; font-size: 0.95rem; }
         .a-box { padding: 15px; text-align: justify; font-size: 0.9rem; border-bottom: 1px solid #f1f5f9; }
 
+        /* BISMILLAH & JAWAB */
+        .bismillah-text { display: block; text-align: center; font-weight: bold; color: var(--primary-blue); margin-bottom: 5px; font-size: 1rem; }
+        .aljawab-text { display: block; font-weight: bold; color: var(--gold-accent); margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+
         .lib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .book-card { 
             background: var(--white); border-radius: 10px; padding: 12px; text-align: center; 
             border-bottom: 3px solid var(--gold-accent); box-shadow: var(--card-shadow);
         }
 
-        /* 6. Buttons & Inputs */
+        /* CONTACT SECTION PROFESSIONAL STYLE */
+        .contact-info-card {
+            background: var(--white); border-radius: 15px; padding: 25px 15px; text-align: center;
+            box-shadow: var(--card-shadow); margin-bottom: 20px; border: 1px solid #edf2f7;
+        }
+        .contact-icon-circle {
+            width: 60px; height: 60px; background: rgba(26, 42, 108, 0.05);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px; color: var(--primary-blue); font-size: 24px;
+        }
+        .contact-title { font-weight: bold; color: var(--primary-blue); font-size: 18px; margin-bottom: 8px; display: block; }
+        .contact-text { color: var(--text-main); font-size: 14px; margin-bottom: 15px; display: block; }
+        
+        .wa-btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .btn-wa-alt {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px; border-radius: 10px; text-decoration: none; font-weight: bold;
+            font-size: 14px; transition: 0.3s;
+        }
+        .btn-wa-solid { background: var(--wa-green); color: white; }
+        .btn-wa-solid:hover { background: var(--wa-dark); }
+        .btn-wa-outline { background: transparent; border: 2px solid var(--wa-green); color: var(--wa-green); }
+        .btn-wa-outline:hover { background: rgba(37, 211, 102, 0.05); }
+
+        /* 8. Buttons & Inputs */
         .form-control { 
             width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; 
             margin-bottom: 12px; box-sizing: border-box; font-family: inherit; font-size: 0.9rem;
@@ -128,8 +175,16 @@
         <p style="font-size: 12px; color: var(--gold-accent);">لانڈھی، کراچی</p>
     </div>
 
+    <div id="wa-popup">
+        <div class="popup-text">روزانہ کے علمی مسائل کے لیے گروپ جوائن کریں</div>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a href="https://chat.whatsapp.com/GuHGyxN6AVxBHnBHaYynyi" target="_blank" class="btn-main" style="background:var(--wa-green); font-size:10px;">جوائن کریں</a>
+            <div class="popup-close" onclick="closePopup()">×</div>
+        </div>
+    </div>
+
     <div class="news-ticker">
-        <marquee id="tickerText">تعلیمی پورٹل میں خوش آمدید...</marquee>
+        <marquee id="tickerText" scrollamount="3">تعلیمی پورٹل میں خوش آمدید...</marquee>
     </div>
 
     <header>
@@ -168,6 +223,13 @@
             </div>
 
             <input type="text" id="searchInput" class="form-control" placeholder="تلاش کریں (مثلاً: نماز، روزہ...)" onkeyup="filterFatwas()">
+            
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="setCategory('all', this)">سب</button>
+                <button class="tab-btn" onclick="setCategory('masail', this)">مسائل</button>
+                <button class="tab-btn" onclick="setCategory('fatwa', this)">فتاویٰ (PDF)</button>
+            </div>
+
             <div id="fatwaContainer" style="text-align:center; font-size: 14px; padding: 20px;">
                 <i class="fa fa-spinner fa-spin"></i> ڈیٹا لوڈ ہو رہا ہے...
             </div>
@@ -222,14 +284,28 @@
         </div>
 
         <div id="contact" class="section">
-            <div class="fatwa-card" style="padding:20px; text-align:center">
-                <i class="fa fa-map-marked-alt" style="font-size:35px; color:var(--primary-blue)"></i>
-                <h4>جامعہ کا پتہ</h4>
-                <p style="font-size: 14px;">PSO پیٹرول پمپ، ہڈی مل، لانڈھی کراچی</p>
-                <button class="btn-main" onclick="window.open('https://maps.app.goo.gl/dSNfPL3dXqvEAPWG9')"><i class="fa fa-location-arrow"></i> گوگل میپس</button>
-                <hr style="margin:20px 0; opacity:0.1">
-                <p style="font-size:18px; direction:ltr; font-weight:bold; color: var(--primary-blue);">0318 2187575</p>
-                <button class="btn-wa" onclick="window.open('https://wa.me/923182187575')">واٹس ایپ رابطہ</button>
+            <div class="contact-info-card">
+                <div class="contact-icon-circle"><i class="fa fa-map-marked-alt"></i></div>
+                <span class="contact-title">جامعہ کا پتہ</span>
+                <span class="contact-text">PSO پیٹرول پمپ، ہڈی مل، لانڈھی کراچی</span>
+                <button class="btn-main" style="background:var(--primary-blue); padding:10px 25px;" onclick="window.open('https://maps.google.com/?q=PSO+Petrol+Pump+Landhi+Karachi')">
+                    <i class="fa fa-location-arrow"></i> گوگل میپس پر دیکھیں
+                </button>
+            </div>
+
+            <div class="contact-info-card">
+                <div class="contact-icon-circle"><i class="fa fa-phone-alt"></i></div>
+                <span class="contact-title">رابطہ نمبر</span>
+                <a href="tel:03182187575" style="text-decoration:none; color:var(--primary-blue); font-size:22px; font-weight:bold; display:block; margin-bottom:15px; direction:ltr;">0318 2187575</a>
+                
+                <div class="wa-btn-group">
+                    <a href="https://chat.whatsapp.com/GuHGyxN6AVxBHnBHaYynyi" target="_blank" class="btn-wa-alt btn-wa-solid">
+                        <i class="fab fa-whatsapp"></i> واٹس ایپ گروپ جوائن کریں
+                    </a>
+                    <a href="https://wa.me/923182187575" target="_blank" class="btn-wa-alt btn-wa-outline">
+                        <i class="fab fa-whatsapp"></i> واٹس ایپ پر براہِ راست رابطہ
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -250,6 +326,7 @@
     <script>
         const SHEET_ID = '1OjYrnTqL2spf20iDDRIJCkhjoLjIO0SPCW5nXLr66dM';
         let allData = [];
+        let currentCategory = 'all';
 
         async function loadData() {
             try {
@@ -257,21 +334,32 @@
                 const text = await response.text();
                 const json = JSON.parse(text.substr(47).slice(0, -2));
                 allData = json.table.rows.slice(1);
-                renderEverything(allData);
+                renderEverything();
             } catch (e) {
                 document.getElementById('fatwaContainer').innerHTML = "ڈیٹا لوڈ نہیں ہو سکا۔";
             }
         }
 
-        function renderEverything(rows) {
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderEverything();
+        }
+
+        function renderEverything() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             let fatwaHtml = '', bookHtml = '', eduHtml = '';
             let fCount = 0, mCount = 0, bCount = 0;
 
-            rows.forEach((row) => {
+            allData.forEach((row) => {
                 const q = row.c[0]?.v || '';
                 const a = row.c[1]?.v || '';
                 const link = row.c[2]?.v || '';
                 const type = String(row.c[3]?.v || '').toLowerCase();
+
+                // Search logic
+                if (searchTerm && !q.toLowerCase().includes(searchTerm) && !a.toLowerCase().includes(searchTerm)) return;
 
                 if (type.includes('education')) {
                     eduHtml += `<div class="fatwa-card"><div class="q-box">${q}</div><div class="a-box">${a}</div></div>`;
@@ -281,22 +369,30 @@
                     bookHtml += `<div class="book-card"><span class="tag">کتاب ${bCount}</span><br><i class="fa fa-file-pdf" style="font-size:25px; color:var(--primary-blue); margin:8px 0;"></i><br><b style="font-size:12px;">${q}</b><br><a href="${link}" target="_blank" class="btn-main" style="padding:4px 10px; font-size:11px; margin-top:8px">ڈاؤن لوڈ</a></div>`;
                 }
                 else if (type.includes('pdf')) {
-                    fCount++;
-                    fatwaHtml += `<div class="fatwa-card"><div class="q-box"><span class="tag">فتویٰ ${fCount}</span> ${q}</div><div class="a-box">${a.substring(0,100)}...</div><div style="padding:10px 15px"><a href="${link}" target="_blank" class="btn-main">پڑھیے (PDF)</a></div></div>`;
+                    if (currentCategory === 'all' || currentCategory === 'fatwa') {
+                        fCount++;
+                        fatwaHtml += `<div class="fatwa-card"><div class="q-box"><span class="tag">فتویٰ ${fCount}</span> ${q}</div><div class="a-box">${a.substring(0,100)}...</div><div style="padding:10px 15px"><a href="${link}" target="_blank" class="btn-main">پڑھیے (PDF)</a></div></div>`;
+                    }
                 }
                 else if (type.includes('news')) {
                     document.getElementById('tickerText').innerText = q;
                 }
                 else if (q) {
-                    mCount++;
-                    fatwaHtml += `
-                        <div class="fatwa-card">
-                            <div class="q-box"><span class="tag">مسئلہ ${mCount}</span> ${q}</div>
-                            <div class="a-box">${a}</div>
-                            <div style="padding:8px 15px; background:#fcfcfc; display:flex; justify-content:flex-end">
-                                <button class="share-btn" onclick="shareWa('${q}','${a}')"><i class="fab fa-whatsapp"></i> شیئر</button>
-                            </div>
-                        </div>`;
+                    if (currentCategory === 'all' || currentCategory === 'masail') {
+                        mCount++;
+                        fatwaHtml += `
+                            <div class="fatwa-card">
+                                <div class="q-box"><span class="tag">مسئلہ ${mCount}</span> ${q}</div>
+                                <div class="a-box">
+                                    <span class="bismillah-text">بسم اللہ الرحمن الرحیم</span>
+                                    <span class="aljawab-text">الجواب حامداً ومصلياً</span>
+                                    ${a}
+                                </div>
+                                <div style="padding:8px 15px; background:#fcfcfc; display:flex; justify-content:flex-end">
+                                    <button class="share-btn" onclick="shareWa('${q}','${a}')"><i class="fab fa-whatsapp"></i> شیئر</button>
+                                </div>
+                            </div>`;
+                    }
                 }
             });
 
@@ -319,7 +415,7 @@
         }
 
         function shareWa(q, a) {
-            const msg = `*سوال:* ${q}\n*جواب:* ${a}\n\n_جامعہ قاضی انیس الرحمن کراچی_`;
+            const msg = `*سوال:* ${q}\n\n*جواب:*\nبسم اللہ الرحمن الرحیم\nالجواب حامداً ومصلياً\n${a}\n\n_جامعہ قاضی انیس الرحمن کراچی_`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
         }
 
@@ -344,12 +440,11 @@
         }
 
         function filterFatwas() {
-            const term = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allData.filter(row => 
-                (row.c[0]?.v || '').toLowerCase().includes(term) || 
-                (row.c[1]?.v || '').toLowerCase().includes(term)
-            );
-            renderEverything(filtered);
+            renderEverything();
+        }
+
+        function closePopup() {
+            document.getElementById('wa-popup').classList.remove('show');
         }
 
         window.onscroll = () => {
@@ -362,6 +457,11 @@
                 document.getElementById('splash-screen').style.opacity = '0';
                 setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 800);
             }, 1800);
+
+            // Show Popup after 30 seconds
+            setTimeout(() => {
+                document.getElementById('wa-popup').classList.add('show');
+            }, 30000);
         };
     </script>
 </body>
